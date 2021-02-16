@@ -1,6 +1,6 @@
 ## 1.Antes de criar um novo pipeline
 
-  * [x] ..
+  * [] ..
 
 ## 2. Implementação
 
