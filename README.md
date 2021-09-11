@@ -1,36 +1,20 @@
-## 1.Antes de criar um novo pipeline
+# Template pipeline
 
-  * [] ..
+Este repositório contém um workflow de pipeline em WDL usado como referência para construir outros pipelines de bioinformática.
+Descreva aqui nesta seção o objetivo claro do que seu pipeline deverá executar.
 
-## 2. Implementação
-
-  * [ ] ..
-  
-## 3. Monitoramento e Testes em Homologação
-
-  * [ ] ..
-  
-  
- ## 4. Documentação Técnica
-
-  * [ ] ..
-
-  
-## 5. Deploy no Varstation
-
-  * [ ] ..
-  
-  
-## 6. Validação
-
-  * [ ] ..
-  
-  
-## 7. Documentação de Validação 
-
-  * [ ] ..
-  
+Este pipeline irá receber com um arquivo texto em formato txt e irá resultar em imprimir na tela o text escrito no arquivo texto.
 
 
-## 8. Referências
- * [ ] ...
+## Documentacao
+Documentação deste workflow pode ser encontrado [aqui]().
+Documentation for this workflow can be
+
+## Sobre
+Este workflow é parte da organização  [Varstation](https://github.com/varstation/) desenvolvido pelo time do Hospital Israelita Albert Einstein.
+## Contato
+<p>
+  <!-- Obscure e-mail address for spammers -->
+Para qualquer duvida relacionada ao pipeline, use nosso meio de contato pelo github
+<a href="https://github.com/Varstation/pipeline-template/issues">github issue tracker</a>.
+</p>
