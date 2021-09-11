@@ -3,7 +3,7 @@
 Este repositório contém um workflow de pipeline em WDL usado como referência para construir outros pipelines de bioinformática.
 Descreva aqui nesta seção o objetivo claro do que seu pipeline deverá executar.
 
-Este pipeline irá receber com um arquivo texto em formato txt e irá resultar em imprimir na tela o text escrito no arquivo texto.
+Este pipeline **hellopipeline.wdl** irá receber com um arquivo texto em formato txt e irá resultar em imprimir na tela o text escrito no arquivo texto.
 
 
 ## Documentacao
@@ -11,7 +11,7 @@ Documentação deste workflow pode ser encontrado [aqui]().
 Documentation for this workflow can be
 
 ## Sobre
-Este workflow é parte da organização  [Varstation](https://github.com/varstation/) desenvolvido pelo time do Hospital Israelita Albert Einstein.
+Este workflow é parte da organização [Varstation](https://github.com/varstation/) e desenvolvido pelo time do Hospital Israelita Albert Einstein.
 ## Contato
 <p>
   <!-- Obscure e-mail address for spammers -->
