@@ -3,38 +3,11 @@
     - integration
   command: >-
     cromwell run -o tests/cromwell_options.json
-    -i tests/integration/dna.json hellopipeline.wdl
+    -i tests/functional/inputs.json hellopipeline.wdl
   stdout:
     contains:
       - "SingleWorkflowRunnerActor workflow finished with status 'Succeeded'."
   files:
-    - path: "test-output/wgs1.flagstats"
-    - path: "test-output/wgs1.alignment_summary_metrics"
-    - path: "test-output/wgs1.bait_bias_detail_metrics"
-    - path: "test-output/wgs1.bait_bias_summary_metrics"
-    - path: "test-output/wgs1.base_distribution_by_cycle_metrics"
-    - path: "test-output/wgs1.base_distribution_by_cycle.pdf"
-    - path: "test-output/wgs1.error_summary_metrics"
-    - path: "test-output/wgs1.gc_bias.detail_metrics"
-    - path: "test-output/wgs1.gc_bias.pdf"
-    - path: "test-output/wgs1.gc_bias.summary_metrics"
-    - path: "test-output/wgs1.insert_size_histogram.pdf"
-    - path: "test-output/wgs1.insert_size_metrics"
-    - path: "test-output/wgs1.insert_size_metrics"
-    - path: "test-output/wgs1.pre_adapter_detail_metrics"
-    - path: "test-output/wgs1.pre_adapter_summary_metrics"
-    - path: "test-output/wgs1.quality_by_cycle_metrics"
-    - path: "test-output/wgs1.quality_by_cycle.pdf"
-    - path: "test-output/wgs1.quality_distribution_metrics"
-    - path: "test-output/wgs1.quality_distribution.pdf"
-    - path: "test-output/wgs1.quality_yield_metrics"
-    - path: "test-output/wgs1.targetPcrPerTargetCoverage"
-      should_exist: false
-    - path: "test-output/wgs1.targetPcrPerBaseCoverage"
-      should_exist: false
-    - path: "test-output/wgs1.targetPcrMetrics"
-      should_exist: false
-    - path: "test-output/wgs1.RNA_Metrics.pdf"
-      should_exist: false
-    - path: "test-output/wgs1.RNA_Metrics"
-      should_exist: false
+    - path: "test-output/output.csv"
+      contains:
+        - "hello varstation!"
