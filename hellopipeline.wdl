@@ -20,17 +20,32 @@ version 1.0
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+task hello_task {
+    input {
+        File file
+    }
 
+    command {
+        set -e
+        cat ${file}
+    }
+
+    output {
+        String contents = read_string(stdout())
+    }
+}
 
 workflow HelloPipeline {
     call hello_task
+
+    output {
+        String out = hello_task.contents
+    }
+
+    parameter_meta {
+        # inputs
+        file: {description: "A sample file with text contents", category: "required"}
+        out: {description: "Shows the content of the sample file"}
+    }
 }
 
-task hello_task {
-    command {
-        echo "Hello, Varstation!"
-    }
-    output {
-        String out = read_string(stdout())
-    }
-}
