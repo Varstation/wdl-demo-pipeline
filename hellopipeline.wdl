@@ -36,7 +36,14 @@ task hello_task {
 }
 
 workflow HelloPipeline {
-    call hello_task
+    input {
+        File file
+    }
+
+    call hello_task {
+        input:
+            file =  file
+    }
 
     output {
         String out = hello_task.contents
