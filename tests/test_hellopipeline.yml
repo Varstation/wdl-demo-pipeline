@@ -1,4 +1,4 @@
-- name: test hello pipeline
+- name: hello
   tags:
     - integration
   command: >-
@@ -10,4 +10,4 @@
   files:
     - path: "test-output/output.csv"
       contains:
-        - "hello varstation!"
+        - "hello, varstation!"

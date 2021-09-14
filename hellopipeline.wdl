@@ -27,11 +27,11 @@ task hello_task {
 
     command {
         set -e
-        cat ${file}
+        cat ${file} > output.csv
     }
 
     output {
-        String contents = read_string(stdout())
+        File out = "output.csv"
     }
 }
 
@@ -46,7 +46,7 @@ workflow HelloPipeline {
     }
 
     output {
-        String out = hello_task.contents
+        File out = hello_task.out
     }
 
     parameter_meta {
@@ -55,4 +55,3 @@ workflow HelloPipeline {
         out: {description: "Shows the content of the sample file"}
     }
 }
-
