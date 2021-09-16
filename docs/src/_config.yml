@@ -1,0 +1,4 @@
+remote_theme: varstation/wdl-docs-theme
+title: "Varstation: Template Pipeline"
+logo: /assets/img/logo.png
+latest: v1.0.0
