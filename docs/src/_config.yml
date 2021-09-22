@@ -1,11 +1,4 @@
-
-plugins:
- - jekyll-remote-theme
-
 remote_theme: varstation/wdl-docs-theme
 title: "Varstation: Template Pipeline"
 logo: /assets/img/logo.png
 latest: v1.0.0
-github:
-  is_project_page: true
-  repository_url: https://github.com/Varstation/pipeline-template
