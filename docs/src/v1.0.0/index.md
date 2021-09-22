@@ -3,7 +3,7 @@ layout: default
 title: Home
 ---
 
-This workflow uses several programs to call somatic variants and 
+This workflow uses several programs to call somatic variants  
 aggregate the results.
 - strelka
 - mutect2

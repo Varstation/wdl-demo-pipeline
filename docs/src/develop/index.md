@@ -22,7 +22,7 @@ java -jar cromwell-<version>.jar run -i inputs.json somatic-variantcalling.wdl
 ```
 
 ### Inputs
-Inputs are provided through a JSON file. The minimally required inputs are
+Inputs are provided through a  file. The minimally required inputs are
 described below and a template containing all possible inputs can be generated
 using Womtool as described in the
 [WOMtool documentation](http://cromwell.readthedocs.io/en/stable/WOMtool/).
