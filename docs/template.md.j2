@@ -1,0 +1,91 @@
+---
+layout: default
+title: "Inputs: {{ workflow_name }}"
+---
+
+# Inputs para {{ workflow_name }}
+
+Abaixo está descrito uma visão gerão de todos os inputs disponíveis em
+{{ workflow_name }}.
+
+{% if required is defined %}
+## Inputs obrigatórios
+<dl>
+{% for ri in required|sort(attribute='name') -%}
+<dt id="{{ ri.name }}"><a href="#{{ ri.name }}">{{ ri.name }}</a></dt>
+<dd>
+    <i>{{ ri.type }} </i>
+    {%- if ri.default is not none -%}
+    <i>&mdash; Default (Padrão):</i> <code>{{ ri.default }}</code>
+    {%- endif -%}
+    <br />
+    {{ ri.description }}
+</dd>
+{% endfor -%}
+</dl>
+{% endif -%}
+
+{% if common is defined %}
+## Outras entradas padrões
+<dl>
+{% for ci in common|sort(attribute='name') -%}
+<dt id="{{ ci.name }}"><a href="#{{ ci.name }}">{{ ci.name }}</a></dt>
+<dd>
+    <i>{{ ci.type }} </i>
+    {%- if ci.default is not none -%}
+    <i>&mdash; Default (Padrão):</i> <code>{{ ci.default }}</code>
+    {%- endif -%}
+    <br />
+    {{ ci.description }}
+</dd>
+{% endfor -%}
+</dl>
+{% endif -%}
+
+{% if advanced is defined %}
+## Inputs avançados
+<details>
+<summary> Exibir/Esconder </summary>
+<dl>
+{% for ai in advanced|sort(attribute='name') -%}
+<dt id="{{ ai.name }}"><a href="#{{ ai.name }}">{{ ai.name }}</a></dt>
+<dd>
+    <i>{{ ai.type }} </i>
+    {%- if ai.default is not none -%}
+    <i>&mdash; Default (Padrão):</i> <code>{{ ai.default }}</code>
+    {%- endif -%}
+    <br />
+    {{ ai.description }}
+</dd>
+{% endfor -%}
+</dl>
+</details>
+{% endif %}
+
+{% if other is defined %}
+## Outros inputs
+<details>
+<summary> Exibir/Esconder </summary>
+<dl>
+{% for oi in other|sort(attribute='name') -%}
+<dt id="{{ oi.name }}"><a href="#{{ oi.name }}">{{ oi.name }}</a></dt>
+<dd>
+    <i>{{ oi.type }} </i>
+    {%- if oi.default is not none -%}
+    <i>&mdash; Default (Padrão):</i> <code>{{ oi.default }}</code>
+    {%- endif -%}
+    <br />
+    {{ oi.description }}
+</dd>
+{% endfor -%}
+</dl>
+</details>
+{% endif %}
+
+{% if excluded_inputs | length > 0 %}
+## Não configure estes inputs!
+Os inputs a seguir **não devem** ser setados, mesmo que o womtool informe eles como inputs disponíveis.
+{% for ei in excluded_inputs %}
+* {{ ei }}
+{%- endfor %}
+{% endif %}

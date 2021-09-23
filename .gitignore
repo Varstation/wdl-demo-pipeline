@@ -1,0 +1,7 @@
+*.jar
+cromwell-executions/
+cromwell-workflow-logs/
+wdl-aid_stderr*
+*.DS_Store*
+.jekyll-cache/
+.jekyll-metadata

@@ -1,0 +1,38 @@
+name: Publish Docs
+
+on:
+  pull_request:
+    paths:
+      - docs/**
+  push:
+    branches:
+      - develop
+      - main
+    paths:
+      - docs/**
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true  # Fetch modules
+          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+
+      # Use ruby/setup-ruby to shorten build times
+      # https://github.com/ruby/setup-ruby
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7 # Not needed with a .ruby-version file
+          bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/src
+          enable_jekyll: true

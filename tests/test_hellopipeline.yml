@@ -1,0 +1,13 @@
+- name: hello
+  tags:
+    - integration
+  command: >-
+    cromwell run -o tests/cromwell_options.json
+    -i tests/functional/inputs.json hellopipeline.wdl
+  stdout:
+    contains:
+      - "SingleWorkflowRunnerActor workflow finished with status 'Succeeded'."
+  files:
+    - path: "test-output/output.csv"
+      contains:
+        - "hello, varstation!"
