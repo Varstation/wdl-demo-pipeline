@@ -3,8 +3,6 @@
 
 [![Continuous Integration](https://github.com/Varstation/pipeline-template/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Varstation/pipeline-template/actions/workflows/ci.yml)
 
-=========
-
 
 Este repositório contém um workflow de pipeline em WDL usado como referência para construir outros pipelines de bioinformática.
 Descreva aqui nesta seção o objetivo claro do que seu pipeline deverá executar.
