@@ -37,7 +37,7 @@ jobs:
       - name: Install requirements.
         run: conda install -n test cromwell miniwdl wdl-aid
       - name: Run linting.
-        run: bash scripts/lint.sh
+        run: bash tools/lint.sh
   test:
     needs: lint  # Don't start testing before the lint has succeeded.
     runs-on: ubuntu-latest
