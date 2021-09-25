@@ -20,7 +20,8 @@ version 1.0
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-task hello_task {
+
+task Alignment {
     input {
         File file
     }
@@ -35,18 +36,35 @@ task hello_task {
     }
 }
 
-workflow HelloPipeline {
+
+
+task VarCall {
     input {
         File file
     }
 
-    call hello_task {
+    command {
+        set -e
+        cat ${file} > output.csv
+    }
+
+    output {
+        File out = "output.csv"
+    }
+}
+
+workflow GermlineVarcallDna {
+    input {
+        File file
+    }
+
+    call Alignment {
         input:
             file =  file
     }
 
     output {
-        File out = hello_task.out
+        File out = Alignment.out
     }
 
     parameter_meta {

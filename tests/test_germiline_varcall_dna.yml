@@ -1,9 +1,10 @@
-- name: hello
+- name: Germline
   tags:
     - integration
+    - germline
   command: >-
     cromwell run -o tests/cromwell_options.json
-    -i tests/functional/inputs.json hellopipeline.wdl
+    -i tests/functional/inputs.json germline-varcall-dna.wdl
   stdout:
     contains:
       - "SingleWorkflowRunnerActor workflow finished with status 'Succeeded'."
