@@ -37,22 +37,6 @@ task Alignment {
 }
 
 
-
-task VarCall {
-    input {
-        File file
-    }
-
-    command {
-        set -e
-        cat ${file} > output.csv
-    }
-
-    output {
-        File out = "output.csv"
-    }
-}
-
 workflow GermlineVarcallDna {
     input {
         File file
