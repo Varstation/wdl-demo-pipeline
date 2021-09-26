@@ -1,17 +1,17 @@
 ---
 layout: default
-title: "Inputs: HelloPipeline"
+title: "Inputs: GermlineVarcallDna"
 ---
 
-# Inputs para HelloPipeline
+# Inputs para GermlineVarcallDna
 
 Abaixo está descrito uma visão gerão de todos os inputs disponíveis em
-HelloPipeline.
+GermlineVarcallDna.
 
 
 ## Inputs obrigatórios
 <dl>
-<dt id="HelloPipeline.file"><a href="#HelloPipeline.file">HelloPipeline.file</a></dt>
+<dt id="GermlineVarcallDna.file"><a href="#GermlineVarcallDna.file">GermlineVarcallDna.file</a></dt>
 <dd>
     <i>File </i><br />
     A sample file with text contents

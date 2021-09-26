@@ -1,14 +1,16 @@
-# Template pipeline
-[![Publish Docs](https://github.com/Varstation/pipeline-template/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/Varstation/pipeline-template/actions/workflows/publish.yml)
+# Germline Varcall Dna Pipeline
+[![Publish Docs](https://github.com/Varstation/wdl-demo-pipeline/actions/workflows/publish.yml/badge.svg?branch=main)](https://github.com/Varstation/wdl-demo-pipeline/actions/workflows/publish.yml)
 
-[![Continuous Integration](https://github.com/Varstation/pipeline-template/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Varstation/pipeline-template/actions/workflows/ci.yml)
+[![Continuous Integration](https://github.com/Varstation/wdl-demo-pipeline/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Varstation/wdl-demo-pipeline/actions/workflows/ci.yml)
 
 
-Este repositório contém um workflow de pipeline em WDL usado como referência para construir outros pipelines de bioinformática.
-Descreva aqui nesta seção o objetivo claro do que seu pipeline deverá executar.
+Este repositório contém o workflow em WDL para o pipeline de bioinformática de detecção de variantes germinativas a partir dos dados de sequenciamento de nova geração de sequenciadores Illumina.
 
-Este pipeline **hellopipeline.wdl** irá receber com um arquivo texto em formato txt e irá resultar em imprimir na tela o text escrito no arquivo texto.
+```
+Pipeline apenas para fins demonstrativos. Não usar este pipeline em produção!
+```
 
+Este pipeline **germline-varcall-dna.wdl** irá receber como parâmetros os arquivos paired-end FASTQs de uma amostra de DNA humana sequenciada e irá realizar as etapas de alinhamento das sequências de DNA a partir do genoma humano de referência hg19 nos cromossomos 17 e 19 com o alinhador BWA. O alinhamento gerado em formato BAM servirá como entrada para a chamada de variantes pela ferramenta Freebayes, gerando como output de saída o arquivo de saída de variantes em formato VCF.
 
 ## Documentacao
 Documentação deste workflow pode ser encontrado [aqui]().
@@ -20,5 +22,5 @@ Este workflow é parte da organização [Varstation](https://github.com/varstati
 <p>
   <!-- Obscure e-mail address for spammers -->
 Para qualquer duvida relacionada ao pipeline, use nosso meio de contato pelo github
-<a href="https://github.com/Varstation/pipeline-template/issues">github issue tracker</a>.
+<a href="https://github.com/Varstation/wdl-demo-pipeline/issues">github issue tracker</a>.
 </p>

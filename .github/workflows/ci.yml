@@ -37,18 +37,14 @@ jobs:
       - name: Install requirements.
         run: conda install -n test cromwell miniwdl wdl-aid
       - name: Run linting.
-<<<<<<< HEAD
-        run: bash scripts/lint.sh
-=======
         run: bash tools/lint.sh
->>>>>>> template/main
   test:
     needs: lint  # Don't start testing before the lint has succeeded.
     runs-on: ubuntu-latest
     strategy:
       matrix:
         test:
-          - Define your test suite here.
+          - integration
     steps:
       - uses: actions/checkout@v2.3.4 # https://github.com/actions/checkout.
         with:
