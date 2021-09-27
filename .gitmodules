@@ -5,3 +5,11 @@
 [submodule "wdl-tasks"]
 	path = wdl-tasks
 	url = https://github.com/Varstation/wdl-tasks.git
+
+[submodule "wdl-validate-inputs"]
+	path = wdl-validate-inputs
+	url = https://github.com/Varstation/wdl-validate-inputs
+
+[submodule "wdl-metrics"]
+	path = wdl-metrics
+	url = https://github.com/Varstation/wdl-metrics
