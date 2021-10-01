@@ -8,7 +8,14 @@
   stdout:
     contains:
       - "SingleWorkflowRunnerActor workflow finished with status 'Succeeded'."
+      - 'GermlineVarcallDna.ValidateInputs.validated": true'
   files:
-    - path: "test-output/output.csv"
-      contains:
-        - "hello, varstation!"
+    - path: "test-output/SAMPLE.SAMPLE_S8_L001_R1_001.fastq.gz.validation.log"
+    - path: "test-output/SAMPLE_S8.aln.bam"
+    - path: "test-output/SAMPLE_S8.freebayes.vcf"
+      contains_regex:
+        - 'chr13\t32915410\t\.\tCAATTA\tCA'
+        - 'chr13\t'
+        - 'chr17\t'
+      must_not_contain_regex:
+        - 'chr[1-9]\t'  #only to check that the varcall does not have any regions besides the regions
