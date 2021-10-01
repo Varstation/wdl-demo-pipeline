@@ -1,3 +1,27 @@
 {
-    "GermlineVarcallDna.file": "tests/data/hello.txt"
+    "GermlineVarcallDna.sampleInputs": {
+      "sampleName": "SAMPLE",
+      "sampleId": 0,
+      "fastqs1": [
+        "tests/data/SAMPLE_S8_L001_R1_001.fastq.gz"
+      ],
+      "fastqs2": [
+        "tests/data/SAMPLE_S8_L001_R2_001.fastq.gz"
+      ]
+
+    },
+    "GermlineVarcallDna.bwaIndex":{
+      "fastaFile": "tests/data/reference/bwa/reference_example.fasta",
+      "indexFiles":[
+        "tests/data/reference/bwa/reference_example.fasta.amb",
+        "tests/data/reference/bwa/reference_example.fasta.ann",
+        "tests/data/reference/bwa/reference_example.fasta.bwt",
+        "tests/data/reference/bwa/reference_example.fasta.pac",
+        "tests/data/reference/bwa/reference_example.fasta.sa"
+      ]
+    },
+    "GermlineVarcallDna.bwaThreads": 1,
+    "GermlineVarcallDna.reference": "tests/data/reference/bwa/reference_example.fasta",
+    "GermlineVarcallDna.reference_idx": "tests/data/reference/bwa/reference_example.fasta.fai",
+    "GermlineVarcallDna.intervals": "tests/data/BRCA.list"
   }
