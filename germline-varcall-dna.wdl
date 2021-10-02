@@ -20,7 +20,7 @@ version 1.0
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import "wdl-validate-inputs/validate-inputs.wdl" as validate
+import "wdl-tasks/validate-inputs.wdl" as validate
 import "wdl-structs/structs.wdl"
 import "merge.wdl"
 import "alignment.wdl"

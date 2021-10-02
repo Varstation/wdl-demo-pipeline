@@ -1,7 +1,8 @@
 [submodule "wdl-structs"]
 	path = wdl-structs
 	url = https://github.com/Varstation/wdl-structs.git
-
+	branch = main
 [submodule "wdl-tasks"]
 	path = wdl-tasks
 	url = https://github.com/Varstation/wdl-tasks.git
+	branch = main
