@@ -14,10 +14,18 @@ for WDL_FILE in $(git ls-files *.wdl)
     # inputs). WDL-AID also errors if there is no workflow in the WDL file
     # but in this case we don't care about that. As such if WDL-AID errors
     # we check if it is the error we care about.
-    wdl-aid --strict $WDL_FILE > /dev/null 2> wdl-aid_stderr ||
-    if grep -z "ValueError: Missing parameter_meta for inputs:" wdl-aid_stderr
-      then
-        exit 1
+    if ! type "pcregrep" > /dev/null; then
+       wdl-aid --strict $WDL_FILE > /dev/null 2> wdl-aid_stderr ||
+      if grep -z "ValueError: Missing parameter_meta for inputs:" wdl-aid_stderr
+         then
+          exit 1
+      fi
+    else 
+       wdl-aid --strict $WDL_FILE > /dev/null 2> wdl-aid_stderr ||
+      if pcregrep -M "ValueError: Missing parameter_meta for inputs:" wdl-aid_stderr
+         then
+          exit 1
+      fi
     fi
   done
 
@@ -31,7 +39,7 @@ for WDL_FILE in $(git ls-files *.wdl)
 git submodule foreach \
 bash -c '\
 if [ "$(git tag --contains)" == "" ]; \
-  then git checkout master && git pull && \
+  then git checkout main && git pull && \
   git submodule update --init --recursive ; \
   else echo "on tag: $(git tag --contains)" ; \
 fi
