@@ -22,6 +22,7 @@ jobs:
         with:
           submodules: true  # Fetch modules
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          token: ${{ secrets.PAT_KEY }}
 
       # Use ruby/setup-ruby to shorten build times
       # https://github.com/ruby/setup-ruby
