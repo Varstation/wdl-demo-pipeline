@@ -5,3 +5,5 @@ wdl-aid_stderr*
 *.DS_Store*
 .jekyll-cache/
 .jekyll-metadata
+*reference_example*
+*SAMPLE_S8*
