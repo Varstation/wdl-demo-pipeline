@@ -46,6 +46,7 @@ workflow GermlineVarcallDna {
 
     }
 
+
     if (defined(sampleInputs.fastqs1) && defined(sampleInputs.fastqs2)) {
         Array[File] fastqs1 = select_first([sampleInputs.fastqs1])
         Array[File] fastqs2 = select_first([sampleInputs.fastqs2])
