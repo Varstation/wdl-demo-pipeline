@@ -156,6 +156,7 @@ set_versions() {
         grep "^new_version" | awk -F= '{ print $2 }'
     )
     MSG="Bump version: $VER_CURRENT → $VER_NEW"
+    echo $MSG
     BRANCH=$(git rev-parse --abbrev-ref HEAD)
     set -e
 }
