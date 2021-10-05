@@ -1,0 +1,78 @@
+name: Release Candidate
+
+on:
+  push:
+    tags:
+      - "*rc*"
+
+defaults:
+  run:
+    # This is needed for miniconda, see:
+    # https://github.com/marketplace/actions/setup-miniconda#important.
+    shell: bash -l {0}
+
+jobs:
+  release-candidate:
+    runs-on: ubuntu-latest
+    name: Build the release candidate , make pre-release  and publish the artifacts.
+    steps:
+      - uses: actions/checkout@v2.3.4 # https://github.com/actions/checkout.
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT_KEY }}
+      - name: Install miniconda.
+        uses: conda-incubator/setup-miniconda@v2.0.1 # https://github.com/conda-incubator/setup-miniconda.
+        with:
+          channels: conda-forge,bioconda,defaults
+        # Conda-incubator uses 'test' environment by default.
+      - name: Install requirements.
+        run: conda install -n test cromwell miniwdl wdl-aid
+      - name: Run linting.
+        run: bash tools/lint.sh
+  test:
+    needs: lint  # Don't start testing before the lint has succeeded.
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test:
+          - integration
+    steps:
+      - uses: actions/checkout@v2.3.4 # https://github.com/actions/checkout.
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT_KEY }}
+      - name: Install miniconda.
+        uses: conda-incubator/setup-miniconda@v2.0.1 # https://github.com/conda-incubator/setup-miniconda.
+        with:
+          channels: conda-forge,bioconda,defaults
+      - name: Install requirements.
+        run: conda install -n test --file requirements-test.txt
+      - name: Download any test required data
+        uses: prewk/s3-cp-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          source: s3://${{ secrets.AWS_DATA_BUCKET }}/
+          dest: ./tests/data/
+          args: --recursive
+      - name: Run test.
+        # Use --symlink to limit disk usage.
+        run: >- 
+          pytest --keep-workflow-wd-on-fail --tag ${{ matrix.test }} 
+          --symlink tests/ 
+      - name: Check cromwell log in case of failure.
+        if: ${{ failure() }}
+        # Get the last 1000 lines of the cromwell log to catch the error.
+        run: bash -c 'tail -n 1000 /tmp/pytest_workflow_*/*/log.out'
+      - name: Check job stderr messages in case of failure
+        if: ${{ failure() }}
+        run: >- 
+          bash -c '
+          for file in $(find /tmp -name stderr); 
+          do echo $file; cat $file; done'
+      - name: Check job stdout messages in case of failure
+        if: ${{ failure() }}
+        run: >- 
+          bash -c '
+          for file in $(find /tmp -name stdout); 
+          do echo $file; cat $file; done'
