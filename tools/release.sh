@@ -254,4 +254,4 @@ check_tagged_submodules
 check_commands
 check_lockfiles
 set_versions
-#bump_version
+bump_version
