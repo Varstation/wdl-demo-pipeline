@@ -54,7 +54,7 @@ a changelog for releases. It requires bump2version, gitchangelog,
 pystache, and git. It must be run from 'main' branch.
 ARGS:
     -p, --part      part of the version to increase. Version scheme:
-                    {major}.{minor}.{patch}-{release}.{build}
+                    {major}.{minor}.{patch}-{release}
 OPTIONS:
     -h, --help      Prints this usage information and exits
     -v, --verbose   Prints verbose messages
@@ -63,10 +63,11 @@ EX:
     Starting from a current version of 1.0.0:
     Task                        Command                 Version number
     ----                        -------                 --------------
-    Start release candidate     $ release -p patch       1.0.1-rc.0
-    Added fixes, update RC      $ release -p build       1.0.1-rc.1
-    Add More fixes              $ release -p build       1.0.1-rc.2
+    Start release candidate     $ release -p release     1.0.1-rc
+    Added fixes, update RC      $ release -p patch       1.0.2-rc
+    Add More fixes              $ release -p minor       1.0.3-rc
     Release                     $ release -p release     1.0.1
+
 EOF
 fi
 }
