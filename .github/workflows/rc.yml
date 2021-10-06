@@ -43,12 +43,12 @@ jobs:
       - name: Tags the Main WDL workflow as versioned
         run: |
           export git_last_tag=$(git describe --abbrev=0); echo ${git_last_tag}
-          export base_wdl=$(basename ${{ secrets.MAIN_WDL }} .wdl)
-          cp ${{ secrets.MAIN_WDL }} ${{ base_wdl }}_${git_last_tag}.wdl
+          export base_wdl=$(basename ${{ secrets.MAIN_WDL }} .wdl); echo ${base_wdl}
+          cp ./${{ secrets.MAIN_WDL }} ./${{ base_wdl }}_${git_last_tag}.wdl
 
       - name: Build (pre-release)
         if: env.isReleaseCandidate == 'true'
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1.8.6
         with:
           token: ${{ secrets.PAT_KEY }}
           prerelease: true
