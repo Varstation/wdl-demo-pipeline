@@ -14,6 +14,7 @@ HASH_CHANGELOG=""
 TAG_DATE=""
 TAG_MSG=""
 PLATFORM=$(uname -s)
+GIT_ROOT="$(git rev-parse --show-toplevel)"
 
 usage() {
 
@@ -226,6 +227,29 @@ bump_version() {
         exit 1
     fi
 }
+
+
+
+function check_tagged_submodules {
+    echo "Check if all submodules are tagged"
+    git submodule update --init --recursive
+    git submodule foreach --recursive \
+    bash -c 'if [ "$(git tag -l --points-at HEAD)" == "" ] ; \
+    then echo "Untagged submodule found. Please make sure all submodules are released. Aborting release procedure." && exit 1 ;\
+    else echo "contains tag: $(git tag -l --points-at HEAD)" ;\
+    fi'
+}
+
+# Checking out latest version of main.
+cd $GIT_ROOT
+echo "Checking out main"
+git checkout main
+echo "Get latest develop main"
+git pull origin main
+
+# Checking if pipeline is ready for release.
+check_tagged_submodules
+
 
 check_commands
 check_lockfiles
