@@ -10,6 +10,3 @@ pytest-workflow==1.5.0
 womtool
 miniwdl
 wdl-aid
-bump2version
-gitchangelog
-pystache
