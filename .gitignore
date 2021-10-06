@@ -5,3 +5,4 @@ wdl-aid_stderr*
 *.DS_Store*
 .jekyll-cache/
 .jekyll-metadata
+*.zip
