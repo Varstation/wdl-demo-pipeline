@@ -54,4 +54,5 @@ workflow HelloPipeline {
         file: {description: "A sample file with text contents", category: "required"}
         out: {description: "Shows the content of the sample file"}
     }
+
 }
