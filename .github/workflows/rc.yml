@@ -4,6 +4,8 @@ on:
   push:
     tags:
       - "*"
+  workflow_dispatch:
+
 env:
   isReleaseCandidate: ${{ contains(github.ref, 'tags') && contains(github.ref, '-rc') }}
   isFinalRelease: ${{ contains(github.ref, 'tags') && !contains(github.ref, '-rc') }}
