@@ -55,6 +55,7 @@ jobs:
           main_workflow: ${{ secrets.MAIN_WDL }}
         run: |
           wdl-packager --reproducible -a LICENSE $main_workflow
+          ls -l *.zip
 
       - name: Tags the Main WDL workflow as versioned
         env:
@@ -69,7 +70,7 @@ jobs:
         run: cp ./$main_workflow ./${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl
 
       - name: Build (pre-release)
-        if: env.isReleaseCandidate == 'true'
+        #if: env.isReleaseCandidate == 'true'
         uses: ncipollo/release-action@v1.8.6
         with:
           token: ${{ secrets.PAT_KEY }}
@@ -83,6 +84,7 @@ jobs:
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v1
         with:
+          name: Assets
           path: |
             ${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl
             ${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.zip
