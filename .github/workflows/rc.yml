@@ -11,10 +11,27 @@ env:
   isFinalRelease: ${{ contains(github.ref, 'tags') && !contains(github.ref, '-rc') }}
 
 jobs:
+
+  secrets-main-wdl:
+    runs-on: ubuntu-latest
+    outputs:
+      ok: ${{ steps.check-secrets.outputs.ok }}
+    steps:
+      - name: check for secrets MAIN_WDL needed to run the workflow
+        id: check-secrets
+        run: |
+          if [ ! -z "${{ secrets.MAIN_WDL }}" ]; then
+            echo "::set-output name=ok::true"
+          fi
+
   release-build:
 
     runs-on: ubuntu-18.04
     name: Build the release candidate , make pre-release  and publish the artifacts.
+
+    needs:
+      - secrets-main-wdl
+    if: ${{ needs.secrets-main-wdl.outputs.ok == 'true' }}
 
     steps:
 
@@ -41,10 +58,13 @@ jobs:
           wdl-packager --reproducible -a LICENSE  ${{ secrets.MAIN_WDL }}
 
       - name: Tags the Main WDL workflow as versioned
+        shell: bash
         run: |
-          export git_last_tag=$(git describe --abbrev=0); echo ${git_last_tag}
-          export base_wdl=$(basename {{ secrets.MAIN_WDL }} .wdl); echo ${base_wdl}
-          cp ./${{ secrets.MAIN_WDL }} ./${{ base_wdl }}_${git_last_tag}.wdl
+          echo "BASE_WDL=$(basename ${{ secrets.MAIN_WDL }} .wdl)" >> $GITHUB_ENV
+          echo ${{ env.BASE_WDL }}
+          echo "GIT_TAG_LAST=$(git describe --abbrev=0)" >> $GITHUB_ENV
+          echo ${{ env.GIT_TAG_LAST }}
+          cp ./${{ secrets.MAIN_WDL }} ./${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl
 
       - name: Build (pre-release)
         if: env.isReleaseCandidate == 'true'
@@ -56,11 +76,11 @@ jobs:
           bodyFile: "RELEASENOTES.md"
           allowUpdates: true
           replacesArtifacts: true
-          artifacts: '${{ base_wdl }}_${git_last_tag}.wdl,${{ base_wdl }}_${git_last_tag}.zip'
+          artifacts: '${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl,${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.zip'
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v1
         with:
           path: |
-            ${{ base_wdl }}_${git_last_tag}.wdl
-            ${{ base_wdl }}_${git_last_tag}.zip
+            ${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl
+            ${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.zip
