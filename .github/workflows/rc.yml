@@ -56,7 +56,7 @@ jobs:
           wdl-packager --reproducible -a LICENSE $main_workflow
 
       - name: Tags the Main WDL workflow as versioned
-        with:
+        env:
           main_workflow: ${{ secrets.MAIN_WDL }}
         shell: bash
         run: |
@@ -65,7 +65,7 @@ jobs:
           echo "GIT_TAG_LAST=$(git describe --abbrev=0)" >> $GITHUB_ENV
           echo ${{ env.GIT_TAG_LAST }}
       - name: Copy the main workflow as versioned
-        with:
+        env:
           main_workflow: ${{ secrets.MAIN_WDL }}
         run: cp ./$main_workflow ./${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl
 
