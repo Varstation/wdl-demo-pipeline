@@ -50,7 +50,7 @@ jobs:
           pip install wdl-packager
 
       - name: Build the wdl-packager
-        with:
+        env:
           main_workflow: ${{ secrets.MAIN_WDL }}
         run: |
           wdl-packager --reproducible -a LICENSE $main_workflow
