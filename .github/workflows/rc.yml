@@ -9,7 +9,7 @@ on:
 env:
   isReleaseCandidate: ${{ contains(github.ref, 'tags') && contains(github.ref, '-rc') }}
   isFinalRelease: ${{ contains(github.ref, 'tags') && !contains(github.ref, '-rc') }}
-  main_workflow: ${{ secrets.MAIN_WDL }}
+
 jobs:
 
   secrets-main-wdl:
@@ -50,17 +50,24 @@ jobs:
           pip install wdl-packager
 
       - name: Build the wdl-packager
+        with:
+          main_workflow: ${{ secrets.MAIN_WDL }}
         run: |
-          wdl-packager --reproducible -a LICENSE  $main_workflow
+          wdl-packager --reproducible -a LICENSE $main_workflow
 
       - name: Tags the Main WDL workflow as versioned
+        with:
+          main_workflow: ${{ secrets.MAIN_WDL }}
         shell: bash
         run: |
           echo "BASE_WDL=$(basename $main_workflow .wdl)" >> $GITHUB_ENV
           echo ${{ env.BASE_WDL }}
           echo "GIT_TAG_LAST=$(git describe --abbrev=0)" >> $GITHUB_ENV
           echo ${{ env.GIT_TAG_LAST }}
-          cp ./$main_workflow ./${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl
+      - name: Copy the main workflow as versioned
+        with:
+          main_workflow: ${{ secrets.MAIN_WDL }}
+          run: cp ./$main_workflow ./${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl
 
       - name: Build (pre-release)
         if: env.isReleaseCandidate == 'true'
