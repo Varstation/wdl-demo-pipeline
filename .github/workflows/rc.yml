@@ -51,16 +51,16 @@ jobs:
 
       - name: Build the wdl-packager
         run: |
-          wdl-packager --reproducible -a LICENSE  ${{ env.main_workflow }}
+          wdl-packager --reproducible -a LICENSE  $main_workflow
 
       - name: Tags the Main WDL workflow as versioned
         shell: bash
         run: |
-          echo "BASE_WDL=$(basename ${{ env.main_workflow }} .wdl)" >> $GITHUB_ENV
+          echo "BASE_WDL=$(basename $main_workflow .wdl)" >> $GITHUB_ENV
           echo ${{ env.BASE_WDL }}
           echo "GIT_TAG_LAST=$(git describe --abbrev=0)" >> $GITHUB_ENV
           echo ${{ env.GIT_TAG_LAST }}
-          cp ./${{ env.main_workflow }} ./${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl
+          cp ./$main_workflow ./${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl
 
       - name: Build (pre-release)
         if: env.isReleaseCandidate == 'true'
