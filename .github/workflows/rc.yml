@@ -67,7 +67,7 @@ jobs:
       - name: Copy the main workflow as versioned
         with:
           main_workflow: ${{ secrets.MAIN_WDL }}
-          run: cp ./$main_workflow ./${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl
+        run: cp ./$main_workflow ./${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl
 
       - name: Build (pre-release)
         if: env.isReleaseCandidate == 'true'
