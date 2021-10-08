@@ -50,13 +50,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install wdl-packager
 
-      - name: Build the wdl-packager
-        env:
-          main_workflow: ${{ secrets.MAIN_WDL }}
-        run: |
-          wdl-packager --reproducible -a LICENSE $main_workflow
-          ls -l *.zip
-
       - name: Tags the Main WDL workflow as versioned
         env:
           main_workflow: ${{ secrets.MAIN_WDL }}
@@ -64,6 +57,14 @@ jobs:
         run: |
           echo "BASE_WDL=$(basename $main_workflow .wdl)" >> $GITHUB_ENV
           echo "GIT_TAG_LAST=$(git describe --abbrev=0)" >> $GITHUB_ENV
+
+      - name: Build the wdl-packager
+        env:
+          main_workflow: ${{ secrets.MAIN_WDL }}
+        run: |
+          wdl-packager -a LICENSE $main_workflow -o ${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.zip
+          ls -l *.zip
+
       - name: Copy the main workflow as versioned
         env:
           main_workflow: ${{ secrets.MAIN_WDL }}
@@ -80,7 +81,7 @@ jobs:
           allowUpdates: true
           replacesArtifacts: true
           artifacts: '${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl,${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.zip'
-          tag: latest
+          tag: ${{ env.GIT_TAG_LAST }}
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v1
