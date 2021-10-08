@@ -76,7 +76,7 @@ jobs:
         run: bash tools/getchangelogs.sh '${{ env.GIT_TAG_LAST }}' RELEASENOTES.md > LASTCHANGES.md
 
       - name: Build (pre-release)
-        #if: env.isReleaseCandidate == 'true'
+        if: env.isReleaseCandidate == 'true'
         uses: ncipollo/release-action@v1.8.6
         with:
           token: ${{ secrets.PAT_KEY }}
@@ -89,7 +89,7 @@ jobs:
           tag: ${{ env.GIT_TAG_LAST }}
 
       - name: Build (final release)
-        #if: env.isFinalRelease == 'true'
+        if: env.isFinalRelease == 'true'
         uses: ncipollo/release-action@v1.8.6
         with:
           token: ${{ secrets.PAT_KEY }}
