@@ -83,10 +83,14 @@ jobs:
           artifacts: '${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl,${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.zip'
           tag: ${{ env.GIT_TAG_LAST }}
 
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v1
+      - name: Build (final release)
+        #if: env.isFinalRelease == 'true'
+        uses: ncipollo/release-action@v1.8.6
         with:
-          name: Assets
-          path: |
-            ${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl
-            ${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.zip
+          token: ${{ secrets.PAT_KEY }}
+          draft: true
+          bodyFile: "RELEASENOTES.md"
+          allowUpdates: true
+          replacesArtifacts: true
+          artifacts: '${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl,${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.zip'
+          tag: ${{ env.GIT_TAG_LAST }}
