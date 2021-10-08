@@ -3,6 +3,7 @@
 
 [![Continuous Integration](https://github.com/Varstation/wdl-demo-pipeline/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Varstation/wdl-demo-pipeline/actions/workflows/ci.yml)
 
+[![Latest Release](https://img.shields.io/github/v/release/Varstation/pipeline-template?include_prereleases)](https://github.com/Varstation/pipeline-template/releases)
 
 Este repositório contém o workflow em WDL para o pipeline de bioinformática de detecção de variantes germinativas a partir dos dados de sequenciamento de nova geração de sequenciadores Illumina.
 

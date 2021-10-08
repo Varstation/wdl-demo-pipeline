@@ -6,6 +6,8 @@ on:
       - "**.wdl"  # Workflow files and task.
       - "**.yml"  # Ci configuration, tests and docker images.
       - "!docs/**"
+      - "!**/rc.yml"
+
   push:
     branches: 
       - develop
@@ -14,6 +16,7 @@ on:
       - "**.wdl"  # Workflow files and task.
       - "**.yml"  # Ci configuration, tests and docker images.
       - "!docs/**"
+      - "!**/rc.yml"
 
 defaults:
   run:
