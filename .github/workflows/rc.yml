@@ -80,6 +80,7 @@ jobs:
           allowUpdates: true
           replacesArtifacts: true
           artifacts: '${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl,${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.zip'
+          tag: latest
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v1
