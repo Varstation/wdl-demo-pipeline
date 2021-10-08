@@ -70,6 +70,11 @@ jobs:
           main_workflow: ${{ secrets.MAIN_WDL }}
         run: cp ./$main_workflow ./${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl
 
+      - name: Get the changelogs for the version
+        env:
+          main_workflow: ${{ secrets.MAIN_WDL }}
+        run: bash tools/getchangelogs.sh '${{ env.GIT_TAG_LAST }}' RELEASENOTES.md > LASTCHANGES.md
+
       - name: Build (pre-release)
         #if: env.isReleaseCandidate == 'true'
         uses: ncipollo/release-action@v1.8.6
@@ -77,7 +82,7 @@ jobs:
           token: ${{ secrets.PAT_KEY }}
           prerelease: true
           draft: true
-          bodyFile: "RELEASENOTES.md"
+          bodyFile: "LASTCHANGES.md"
           allowUpdates: true
           replacesArtifacts: true
           artifacts: '${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl,${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.zip'
@@ -89,7 +94,7 @@ jobs:
         with:
           token: ${{ secrets.PAT_KEY }}
           draft: true
-          bodyFile: "RELEASENOTES.md"
+          bodyFile: "LASTCHANGES.md"
           allowUpdates: true
           replacesArtifacts: true
           artifacts: '${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl,${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.zip'
