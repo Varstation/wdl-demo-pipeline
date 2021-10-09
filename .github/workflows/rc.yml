@@ -1,0 +1,101 @@
+name: Release Build
+
+on:
+  push:
+    tags:
+      - "*"
+  workflow_dispatch:
+
+env:
+  isReleaseCandidate: ${{ contains(github.ref, 'tags') && contains(github.ref, '-rc') }}
+  isFinalRelease: ${{ contains(github.ref, 'tags') && !contains(github.ref, '-rc') }}
+
+jobs:
+
+  secrets-main-wdl:
+    runs-on: ubuntu-latest
+    outputs:
+      ok: ${{ steps.check-secrets.outputs.ok }}
+    steps:
+      - name: check for secrets MAIN_WDL needed to run the workflow
+        id: check-secrets
+        run: |
+          if [ ! -z "${{ secrets.MAIN_WDL }}" ]; then
+            echo "::set-output name=ok::true"
+          fi
+
+  release-build:
+
+    runs-on: ubuntu-18.04
+    name: Build the release candidate , make pre-release  and publish the artifacts.
+
+    needs:
+      - secrets-main-wdl
+    if: ${{ needs.secrets-main-wdl.outputs.ok == 'true' }}
+
+    steps:
+
+      - uses: actions/checkout@v2.3.4 # https://github.com/actions/checkout.
+        with:
+          submodules: recursive
+          token: ${{ secrets.PAT_KEY }}
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+
+      - name: Install the wdl-packager
+        run: |
+          python -m pip install --upgrade pip
+          pip install wdl-packager
+
+      - name: Tags the Main WDL workflow as versioned
+        env:
+          main_workflow: ${{ secrets.MAIN_WDL }}
+        shell: bash
+        run: |
+          echo "BASE_WDL=$(basename $main_workflow .wdl)" >> $GITHUB_ENV
+          echo "GIT_TAG_LAST=$(git describe --abbrev=0)" >> $GITHUB_ENV
+
+      - name: Build the wdl-packager
+        env:
+          main_workflow: ${{ secrets.MAIN_WDL }}
+        run: |
+          wdl-packager -a LICENSE $main_workflow -o ${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.zip
+          ls -l *.zip
+
+      - name: Copy the main workflow as versioned
+        env:
+          main_workflow: ${{ secrets.MAIN_WDL }}
+        run: cp ./$main_workflow ./${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl
+
+      - name: Get the changelogs for the version
+        env:
+          main_workflow: ${{ secrets.MAIN_WDL }}
+        run: bash tools/getchangelogs.sh '${{ env.GIT_TAG_LAST }}' RELEASENOTES.md > LASTCHANGES.md
+
+      - name: Build (pre-release)
+        #if: env.isReleaseCandidate == 'true'
+        uses: ncipollo/release-action@v1.8.6
+        with:
+          token: ${{ secrets.PAT_KEY }}
+          prerelease: true
+          draft: true
+          bodyFile: "LASTCHANGES.md"
+          allowUpdates: true
+          replacesArtifacts: true
+          artifacts: '${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl,${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.zip'
+          tag: ${{ env.GIT_TAG_LAST }}
+
+      - name: Build (final release)
+        #if: env.isFinalRelease == 'true'
+        uses: ncipollo/release-action@v1.8.6
+        with:
+          token: ${{ secrets.PAT_KEY }}
+          draft: true
+          bodyFile: "LASTCHANGES.md"
+          allowUpdates: true
+          replacesArtifacts: true
+          artifacts: '${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.wdl,${{ env.BASE_WDL }}_${{ env.GIT_TAG_LAST }}.zip'
+          tag: ${{ env.GIT_TAG_LAST }}

@@ -1,0 +1,8 @@
+# These are the programs used for build the version including the version
+# This file can be installed with "pip install -r requirements-build.txt".
+
+
+bump2version
+gitchangelog
+pystache
+wdl-packager
