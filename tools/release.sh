@@ -241,6 +241,15 @@ function check_tagged_submodules {
     fi'
 }
 
+function update_docs {
+    cd $GIT_ROOT
+    echo "Updating the docs to the new version"
+    mkdir -p  docs/src/$VER_NEW
+    cp -r docs/src/develop/* docs/src/$VER_NEW/
+    sed -i.bak "s/latest: .*/latest: ${VER_NEW}/" docs/src/_config.yml && rm docs/src/_config.yml.bak
+    grep 'latest:' <  docs/src/_config.yml
+}
+
 # Checking out latest version of main.
 cd $GIT_ROOT
 echo "Checking out main"
@@ -256,3 +265,4 @@ check_commands
 check_lockfiles
 set_versions
 bump_version
+update_docs
