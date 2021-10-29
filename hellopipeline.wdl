@@ -30,6 +30,10 @@ task hello_task {
         cat ${file} > output.csv
     }
 
+    runtime {
+        docker: "biowdl/curl"
+    }
+
     output {
         File out = "output.csv"
     }

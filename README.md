@@ -12,8 +12,37 @@ Este pipeline **hellopipeline.wdl** irá receber com um arquivo texto em formato
 
 
 ## Documentacao
-Documentação deste workflow pode ser encontrado [aqui]().
-Documentation for this workflow can be
+
+
+### Check de estilo de código
+
+Para estilo de código, basta rodar o comando:
+
+```
+sh tools/lint.sh
+```
+
+### Release
+
+Para criar uma release basta rodar o comando abaixo:
+
+```
+sh release.sh 
+```
+
+Alguns exemplos a seguir:
+
+    Start release candidate     $ release -p patch       1.0.1-rc.0
+    Added fixes, update RC      $ release -p build       1.0.1-rc.1
+    Add More fixes              $ release -p build       1.0.1-rc.2
+    Release                     $ release -p release     1.0.1
+
+### Testes
+Para executar os testes basta rodar o comando:
+
+```
+sh test.sh tag_release
+```
 
 ## Sobre
 Este workflow é parte da organização [Varstation](https://github.com/varstation/) e desenvolvido pelo time do Hospital Israelita Albert Einstein.

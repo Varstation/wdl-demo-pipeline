@@ -1,0 +1,3 @@
+{
+    "HelloPipeline.file": "s3://wdl-poc-helloworld/hello.txt"
+  }
