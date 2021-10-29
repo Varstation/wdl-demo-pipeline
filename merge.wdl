@@ -23,12 +23,12 @@ version 1.0
 
 task Merge {
 
-    input {
+    runtime {
+        docker: "biowdl/curl"
+    }
 
-    Array[File] readsToMergeFwd
-	Array[File] readsToMergeRev
-    String outputPrefix
-    String dockerImage = "varsomics/fqlib:0.7.0"
+    output {
+        File out = "output.csv"
     }
 
     command {

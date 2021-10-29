@@ -1,0 +1,4 @@
+{
+    "final_workflow_log_dir": "s3://varstation-sandbox-cromwell/workflow-logs",
+    "final_call_logs_dir": "s3://varstation-sandbox-cromwell/call-logs"
+}

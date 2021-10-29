@@ -20,3 +20,9 @@ that users understand how the changes affect the new version.
 ## [0.1.0-rc] - 2021-10-06
 ### Added
 - First draft of the wdl pipeline architecture.
+
+## [0.1.1-rc] - 2021-10-29
+### Added
+- Support to AWS remote cromwell configuration (sandbox testing)
+### Changed
+- Added dockerfile configuration for task hello
