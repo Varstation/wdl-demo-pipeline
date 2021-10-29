@@ -28,11 +28,16 @@ task Merge {
     Array[File] readsToMergeFwd
 	Array[File] readsToMergeRev
     String outputPrefix
+    String dockerImage = "varsomics/fqlib:0.7.0"
     }
 
     command {
         cat ${sep = ' ' readsToMergeFwd} > ${outputPrefix}.merged_R1.fastq.gz
         cat ${sep = ' ' readsToMergeRev} > ${outputPrefix}.merged_R2.fastq.gz
+    }
+
+    runtime {
+        docker: dockerImage
     }
 
     output {
@@ -45,6 +50,7 @@ task Merge {
         readsToMergeFwd: {description:"The first-end fastq file.", category: "required"}
         readsToMergeRev: {description: "The second-end fastq file.", category: "required"}
         outputPrefix: {description: "Output prefix for the fastq files.", category: "required"}
+        dockerImage: {description: "Docker Image for Merge the fastq files", category: "advanced"}
 
     }
 

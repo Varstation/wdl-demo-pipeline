@@ -54,7 +54,7 @@ task BwaMem {
     Int estimatedSortThreads = if threads == 1 then 1 else 1 + ceil(threads / 4.0)
     Int totalSortThreads = select_first([sortThreads, estimatedSortThreads])
     # BWA needs slightly more memory than the size of the index files (~10%). Add a margin for safety here.
-    Int estimatedMemoryGb = 1 + ceil(size(bwaIndex.indexFiles, "G") * 1.2) + sortMemoryPerThreadGb * totalSortThreads
+    Int estimatedMemoryGb = 4  #1 + ceil(size(bwaIndex.indexFiles, "G") * 1.2) + sortMemoryPerThreadGb * totalSortThreads
 
     # The bwa postalt script is out commented as soon as usePostalt = false.
     # This hack was tested with bash, dash and ash. It seems that comments in between pipes work for all of them.
