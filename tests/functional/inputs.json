@@ -22,6 +22,6 @@
     },
     "GermlineVarcallDna.bwaThreads": 1,
     "GermlineVarcallDna.reference": "tests/data/reference/bwa/reference_example.fasta",
-    "GermlineVarcallDna.reference_idx": "tests/data/reference/bwa/reference_example.fasta.fai",
+    "GermlineVarcallDna.referenceIdx": "tests/data/reference/bwa/reference_example.fasta.fai",
     "GermlineVarcallDna.intervals": "tests/data/BRCA.list"
   }

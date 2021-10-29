@@ -22,9 +22,9 @@ version 1.0
 
 import "wdl-tasks/validate-inputs.wdl" as validate
 import "wdl-structs/structs.wdl"
-import "merge.wdl"
-import "alignment.wdl"
-import "varcall.wdl"
+import "wdl-tasks/merge-fastqs.wdl" as merge
+import "wdl-tasks/bwa.wdl" as alignment
+import "wdl-tasks/freebayes.wdl" as varcall
 
 workflow GermlineVarcallDna {
 
@@ -33,7 +33,7 @@ workflow GermlineVarcallDna {
         BwaIndex  bwaIndex
         Int bwaThreads = 1
         File reference
-        File reference_idx
+        File referenceIdx
         File ? intervals
 
   }
@@ -71,11 +71,11 @@ workflow GermlineVarcallDna {
         call varcall.FreeBayes {
             input:
                 reference = reference,
-                reference_idx = reference_idx,
+                referenceIdx = referenceIdx,
                 intervals  = intervals,
                 outputPrefix = outputPrefix,
-                bam_file = BwaMem.outputBam,
-                bam_idx_file = BwaMem.outputBai
+                bamFile = BwaMem.outputBam,
+                bamIdxFile = BwaMem.outputBai
         }
 
     }
@@ -87,7 +87,7 @@ workflow GermlineVarcallDna {
         bwaIndex: {description: "The BWA index, including (optionally) a .alt file.", category: "required"}
         outputPrefix: {description: "The prefix of the output files, including any parent directories.", category: "required"}
         reference: {description:"Reference sequence file.", category: "required"}
-        reference_idx: {description: "Reference sequence index (.fai).", category: "required"}
+        referenceIdx: {description: "Reference sequence index (.fai).", category: "required"}
         intervals: {description: "A bed file describing the regions to call variants for.", category: "common"}
         bwaThreads: {description: "The number of threads to use for alignment.", category: "advanced"}
     }

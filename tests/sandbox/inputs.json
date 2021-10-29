@@ -22,6 +22,6 @@
   },
   "GermlineVarcallDna.bwaThreads": 1,
   "GermlineVarcallDna.reference": "s3://wdl-poc-ci/reference/bwa/reference_example.fasta",
-  "GermlineVarcallDna.reference_idx": "s3://wdl-poc-ci/reference/bwa/reference_example.fasta.fai",
+  "GermlineVarcallDna.referenceIdx": "s3://wdl-poc-ci/reference/bwa/reference_example.fasta.fai",
   "GermlineVarcallDna.intervals": "s3://wdl-poc-ci/BRCA.list"
 }
