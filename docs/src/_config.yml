@@ -5,7 +5,7 @@ plugins:
 remote_theme: varstation/wdl-docs-theme
 title: "Varstation: Template Pipeline"
 logo: /assets/img/logo.png
-latest: 0.1.0
+latest: 0.1.1-rc
 github:
   is_project_page: true
   repository_url: https://github.com/Varstation/pipeline-template
