@@ -8,7 +8,7 @@ for WDL_FILE in $(git ls-files *.wdl)
   do
     echo $WDL_FILE
     womtool validate $WDL_FILE
-    miniwdl check $WDL_FILE
+    miniwdl check $WDL_FILE --suppress UnknownRuntimeKey
     grep Copyright $WDL_FILE || bash -c "echo No copyright header in $WDL_FILE && exit 1"
     # Run WDL-AID in strict mode (error if parameter_meta is missing for any
     # inputs). WDL-AID also errors if there is no workflow in the WDL file
