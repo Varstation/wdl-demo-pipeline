@@ -40,6 +40,8 @@ jobs:
         # Conda-incubator uses 'test' environment by default.
       - name: Install requirements.
         run: conda install -n test cromwell miniwdl wdl-aid
+      - name: Install mini-wdl updated.
+        run: pip install miniwdl -U
       - name: Run linting.
         run: bash tools/lint.sh
   test:
