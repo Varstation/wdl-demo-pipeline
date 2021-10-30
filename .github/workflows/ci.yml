@@ -60,6 +60,8 @@ jobs:
           channels: conda-forge,bioconda,defaults
       - name: Install requirements.
         run: conda install -n test --file requirements-test.txt
+      - name: Install mini-wdl updated.
+        run: pip install miniwdl -U
       - name: Download any test required data
         uses: prewk/s3-cp-action@master
         with:
